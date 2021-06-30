@@ -121,22 +121,20 @@
                             }
                         }
                     },
-                    heal: function(){
-                        this.playerHealth -= this.calculateDamage(5,3);
-                        this.listLogs("attackPlayer");
-                        if(this.monsterHealth <= 0){
-                            this.monsterHealth = 0;
-                            alert('GANHOU');
-                            this.listLogs("win");
-                            this.gameIsRuning = false;
-                        }else{
-                            this.playerHealth += this.calculateDamage(20,10);
-                            this.listLogs("playerHeal");
-                            if(this.playerHealth <= 0){
-                                this.playerHealth = 0;
-                                this.listLogs("lose");
-                                this.gameIsRuning = false;
-                            }
+                    heal: function () {
+                        heal = this.calculateDamage(3, 10);
+                        this.playerHealth += heal
+                        this.turns.unshift({
+                            isPlayer: true,
+                            text: 'Player healed for ' + heal
+                        })
+                        if (this.playerHealth <= 0) {
+                            this.playerHealth = 0;
+                            this.gameIsRunning = false;
+                        }
+                        else if (this.playerHealth >= 100) {
+                            this.playerHealth = 100
+                            alert('A vida ja esta no maximo')
                         }
                     },
                     giveUp: function(){
